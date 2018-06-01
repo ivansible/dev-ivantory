@@ -1,0 +1,22 @@
+---
+dependencies:
+  - ivansible.dev-user
+
+galaxy_info:
+  author: "Ivan Andreev"
+  description: "Checkout and activate `ivansible` inventory and playbooks"
+  company: "IvanSible"
+  license: MIT
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+
+  galaxy_tags:
+    - developer
+    - bash
+    - ansible
+...
