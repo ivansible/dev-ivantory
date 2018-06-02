@@ -1,2 +1,32 @@
 ---
 # defaults file for dev-ivansible
+
+dev_ivansible_repo: please_change_me
+
+dev_ivansible_branch: master
+
+dev_ivansible_dir: ~/devel/ivansible2
+
+dev_ivansible_cipher: aes-256-cbc
+
+dev_ivansible_password: ""
+
+dev_ivansible_rekey: false
+
+dev_ivansible_python: python3
+
+dev_ivansible_system_packages:
+  - "{{ dev_ivansible_python }}"
+  - "{{ dev_ivansible_python }}-dev"
+  - virtualenv
+  - build-essential
+  #- sshpass  # sshpass is required for using ssh with passwords
+
+dev_ivansible_transcrypt_release: v1.1.0
+
+dev_ivansible_transcrypt_reinstall: false
+
+dev_ivansible_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ dev_ivansible_transcrypt_release }}/transcrypt"
+
+dev_ivansible_encrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/flagready"
+...
