@@ -55,7 +55,7 @@
   tags: dev_ivansible_check_file
 
 
-- name: harden permissions of secret files
+- name: harden permissions of secret files (slow way)
   block:
     - name: find secret files
       command: transcrypt --list
@@ -70,10 +70,19 @@
                              | map('regex_replace', '^', dev_ivansible_dir + '/')
                              | list }}"
 
-    - name: harden file permissions
+    - name: harden permissions (slow way)
       file:
         path: "{{ item }}"
         mode: 0600
       loop: "{{ secret_repo_files }}"
+  when: "dev_ivansible_harden_quickway | bool == false"
+  tags: dev_ivansible_harden_secrets
+
+- name: harden permissions (quick way)
+  shell: transcrypt --list | xargs -r chmod 600
+  args:
+    chdir: "{{ dev_ivansible_dir }}"
+  changed_when: false
+  when: "dev_ivansible_harden_quickway | bool == true"
   tags: dev_ivansible_harden_secrets
 ...

@@ -34,4 +34,6 @@ dev_ivansible_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/tran
 dev_ivansible_transcrypt_executable: /usr/local/bin/transcrypt
 
 dev_ivansible_decrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/is-decrypted"
+
+dev_ivansible_harden_quickway: true
 ...
