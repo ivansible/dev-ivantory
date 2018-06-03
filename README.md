@@ -36,7 +36,6 @@ URL of gitlab repository with ivansible.
 
 Repository branch to checkout.
 
-
     dev_ivansible_dir: ~/dev/ivansible2
 
 Directory for checkout.
@@ -55,10 +54,11 @@ Transcrypt cipher for secret settings.
 Transcrypt password for secret settings.
 Empty string means that repository is not encrypted.
 
-    dev_ivansible_rekey: false
+    dev_ivansible_check_file: ""
 
-_False_, if transcryption can be run only once.
-_True_, if transcryption should be allowed on every playbook activation.
+If this setting is not empty, it defines relative path of a check file.
+Ansible will compare file contents with is base name, and if they do not
+match, report decryption failure and abort the scenario.
 
 
     dev_ivansible_transcrypt_release: v1.1.0

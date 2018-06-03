@@ -7,11 +7,13 @@ dev_ivansible_branch: master
 
 dev_ivansible_dir: ~/devel/ivansible2
 
+
 dev_ivansible_cipher: aes-256-cbc
 
 dev_ivansible_password: ""
 
-dev_ivansible_rekey: false
+dev_ivansible_check_file: ""
+
 
 dev_ivansible_python: python3
 
@@ -22,11 +24,14 @@ dev_ivansible_system_packages:
   - build-essential
   #- sshpass  # sshpass is required for using ssh with passwords
 
+
 dev_ivansible_transcrypt_release: v1.1.0
 
 dev_ivansible_transcrypt_reinstall: false
 
 dev_ivansible_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ dev_ivansible_transcrypt_release }}/transcrypt"
 
-dev_ivansible_encrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/flagready"
+dev_ivansible_transcrypt_executable: /usr/local/bin/transcrypt
+
+dev_ivansible_decrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/is-decrypted"
 ...

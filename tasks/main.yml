@@ -18,66 +18,10 @@
     accept_hostkey: yes
 
 
-- name: install transcrypt
-  get_url:
-    url: "{{ dev_ivansible_transcrypt_url }}"
-    dest: /usr/local/bin/transcrypt
-    mode: 0755
-    force: "{{ dev_ivansible_transcrypt_reinstall }}"
-  become: yes
-
 - name: decrypt repository
-  block:
-    - name: enable rekeying
-      file:
-        path: "{{ dev_ivansible_encrypted_flag }}"
-        state: absent
-      when: "dev_ivansible_rekey | bool == true"
-
-    - name: decypher repository
-      command: >
-        /usr/local/bin/transcrypt
-          -c "{{ dev_ivansible_cipher }}"
-          -p "{{ dev_ivansible_password }}"
-          -y
-      args:
-        chdir: "{{ dev_ivansible_dir }}"
-        creates: "{{ dev_ivansible_encrypted_flag }}"
-      register: transcrypt_result
-      failed_when:
-        transcrypt_result.rc != 0 and 'repository is already configured' not in transcrypt_result.stderr
-
-    - name: mark repository as encrypted
-      file:
-        path: "{{ dev_ivansible_encrypted_flag }}"
-        state: touch
-      when: "transcrypt_result is successful"
-      changed_when: false
+  import_tasks: transcrypt.yml
   when: "dev_ivansible_password != ''"
   tags: dev_ivansible_decrypt
-
-
-- name: harden file permissions in secret directories
-  block:
-    - name: find secret files
-      command: transcrypt --list
-      args:
-        chdir: "{{ dev_ivansible_dir }}"
-      changed_when: false
-      failed_when: false
-      register: transcrypt_list
-
-    - set_fact:
-        secret_repo_files: "{{ transcrypt_list.stdout_lines
-                             | map('regex_replace', '^', dev_ivansible_dir + '/')
-                             | list }}"
-
-    - name: harden file permissions
-      file:
-        path: "{{ item }}"
-        mode: 0600
-      with_items: "{{ secret_repo_files }}"
-  tags: dev_ivansible_harden_secrets
 
 
 - name: install system packages
