@@ -22,7 +22,9 @@ dev_ivansible_system_packages:
   - "{{ dev_ivansible_python }}-dev"
   - virtualenv
   - build-essential
-  #- sshpass  # sshpass is required for using ssh with passwords
+  # Ansible relies on `sshpass` when using SSH passwords
+  # See http://docs.ansible.com/ansible/latest/user_guide/intro_bsd.html
+  - sshpass
 
 
 dev_ivansible_transcrypt_release: v1.1.0
