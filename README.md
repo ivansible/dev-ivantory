@@ -80,6 +80,14 @@ This flag allows for upgrades.
 What python version to use for ansible: `python` or `python3`.
 
 
+    dev_ivansible_roles_subdir: roles-galaxy
+    dev_ivansible_roles_list_file: roles-import.yml
+    dev_ivansible_roles_check_role: ivansible.lin-base
+
+The script will run `ansible-galaxy` and import roles from given `list file`
+into given role `subdir`ectory if given `check role` does not exist.
+
+
 ## Tags
 
 - `dev_ivansible_prepare_user` - Install SSH access keys,

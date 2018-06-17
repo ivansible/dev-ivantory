@@ -2,17 +2,16 @@
 # defaults file for dev-ivansible
 
 dev_ivansible_repo: please_change_me
-
 dev_ivansible_branch: master
-
 dev_ivansible_dir: ~/devel/ivansible2
 
-
 dev_ivansible_cipher: aes-256-cbc
-
 dev_ivansible_password: ""
-
 dev_ivansible_check_file: ""
+
+dev_ivansible_roles_subdir: roles-galaxy
+dev_ivansible_roles_list_file: roles-import.yml
+dev_ivansible_roles_check_role: ivansible.lin-base
 
 
 dev_ivansible_python: python3
@@ -26,13 +25,9 @@ dev_ivansible_system_packages:
   # See http://docs.ansible.com/ansible/latest/user_guide/intro_bsd.html
   - sshpass
 
-
-dev_ivansible_transcrypt_release: latest
-
 dev_ivansible_transcrypt_reinstall: false
-
+dev_ivansible_transcrypt_release: latest
 dev_ivansible_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ dev_ivansible_transcrypt_release }}/transcrypt"
-
 dev_ivansible_transcrypt_executable: /usr/local/bin/transcrypt
 
 dev_ivansible_decrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/is-decrypted"
