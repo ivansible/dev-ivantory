@@ -1,37 +1,37 @@
 ---
 # defaults file for dev-ivansible
 
-dev_ivansible_repo: please_change_me
-dev_ivansible_branch: master
-dev_ivansible_dir: ~/devel/ivansible2
+divan_repo: please_change_me
+divan_branch: master
+divan_dir: ~/devel/ivansible2
 
-dev_ivansible_cipher: aes-256-cbc
-dev_ivansible_password: ""
-dev_ivansible_check_file: ""
+divan_cipher: aes-256-cbc
+divan_password: ""
+divan_check_file: ""
 
-dev_ivansible_roles_subdir: roles-galaxy
-dev_ivansible_roles_list_file: roles-import.yml
-dev_ivansible_roles_check_role: ivansible.lin-base
+divan_roles_subdir: roles-galaxy
+divan_roles_list_file: roles-import.yml
+divan_roles_check_role: ivansible.lin-base
 
-dev_ivansible_github_token: ""
+divan_github_token: ""
 
-dev_ivansible_python: python3
+divan_python: python3
 
-dev_ivansible_system_packages:
-  - "{{ dev_ivansible_python }}"
-  - "{{ dev_ivansible_python }}-dev"
+divan_system_packages:
+  - "{{ divan_python }}"
+  - "{{ divan_python }}-dev"
   - virtualenv
   - build-essential
   # Ansible relies on `sshpass` when using SSH passwords
   # See http://docs.ansible.com/ansible/latest/user_guide/intro_bsd.html
   - sshpass
 
-dev_ivansible_transcrypt_reinstall: false
-dev_ivansible_transcrypt_release: latest
-dev_ivansible_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ dev_ivansible_transcrypt_release }}/transcrypt"
-dev_ivansible_transcrypt_executable: /usr/local/bin/transcrypt
+divan_transcrypt_reinstall: false
+divan_transcrypt_release: latest
+divan_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ divan_transcrypt_release }}/transcrypt"
+divan_transcrypt_executable: /usr/local/bin/transcrypt
 
-dev_ivansible_decrypted_flag: "{{ dev_ivansible_dir }}/.git/crypt/is-decrypted"
+divan_decrypted_flag: "{{ divan_dir }}/.git/crypt/is-decrypted"
 
-dev_ivansible_harden_quickway: true
+divan_harden_quickway: true
 ...

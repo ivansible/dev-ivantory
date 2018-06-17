@@ -28,15 +28,15 @@ The values will be usually configured in
 `group_vars/workspace/secret/dev-ivansible.yml`
 
 
-    dev_ivansible_repo: git@githab.com:username/reponame
+    divan_repo: git@githab.com:username/reponame
 
 URL of gitlab repository with ivansible.
 
-    dev_ivansible_branch: master
+    divan_branch: master
 
 Repository branch to checkout.
 
-    dev_ivansible_dir: ~/dev/ivansible2
+    divan_dir: ~/dev/ivansible2
 
 Directory for checkout.
 
@@ -45,23 +45,23 @@ Note: Only clone will be performed. If repository is already checked out
 with rewriting possible local modifications by ansible git module.
 
 
-    dev_ivansible_cipher: aes-256-cbc
+    divan_cipher: aes-256-cbc
 
 Transcrypt cipher for secret settings.
 
-    dev_ivansible_password: ""
+    divan_password: ""
 
 Transcrypt password for secret settings.
 Empty string means that repository is not encrypted.
 
-    dev_ivansible_check_file: ""
+    divan_check_file: ""
 
 If this setting is not empty, it defines relative path of a check file.
 Ansible will compare file contents with is base name, and if they do not
 match, report decryption failure and abort the scenario.
 
 
-    dev_ivansible_transcrypt_release: latest
+    divan_transcrypt_release: latest
 
 Transcrypt version to use. Check out
 https://github.com/elasticdog/transcrypt/releases
@@ -69,38 +69,39 @@ for new releases.
 If you set this to `latest` instead of concrete release number, the role
 will detect latest release automatically.
 
-    dev_ivansible_transcrypt_reinstall: false
+    divan_transcrypt_reinstall: false
 
 Normally, if transcrypt is already installed, it will not be upgraded.
 This flag allows for upgrades.
 
 
-    dev_ivansible_python: python3
+    divan_python: python3
 
 What python version to use for ansible: `python` or `python3`.
 
 
-    dev_ivansible_roles_subdir: roles-galaxy
-    dev_ivansible_roles_list_file: roles-import.yml
-    dev_ivansible_roles_check_role: ivansible.lin-base
+    divan_roles_subdir: roles-galaxy
+    divan_roles_list_file: roles-import.yml
+    divan_roles_check_role: ivansible.lin-base
 
 The script will run `ansible-galaxy` and import roles from given `list file`
 into given role `subdir`ectory if given `check role` does not exist.
 
 
-    dev_ivansible_github_token: ""
+    divan_github_token: ""
 
 Perform galaxy login with given github token.
 
 
 ## Tags
 
-- `dev_ivansible_prepare_user` - Install SSH access keys,
+- `divan_prepare_user` - Install SSH access keys,
                                  setup bash and git aliases
-- `dev_ivansible_decrypt` - Decrypt secret files in the repository
-- `dev_ivansible_harden_secrets` - Harden file permissions
+- `divan_decrypt` - Decrypt secret files in the repository
+- `divan_harden_secrets` - Harden file permissions
                                    in secret directories
-- `dev_ivansible_ssh_config` - Add example of login settings
+- `divan_galaxy` - Galaxy login and role import
+- `divan_ssh_config` - Add example of login settings
                                for vagrant boxes to `~/.ssh/config`
 
 

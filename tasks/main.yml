@@ -6,64 +6,65 @@
   vars:
     dev_user_install_keys: true
     dev_user_setup_system: true
-  tags: dev_ivansible_prepare_user
+  tags: divan_prepare_user
 
 
 - name: checkout inventory and playbooks
   git:
-    dest: "{{ dev_ivansible_dir }}"
-    repo: "{{ dev_ivansible_repo }}"
-    version: "{{ dev_ivansible_branch }}"
+    dest: "{{ divan_dir }}"
+    repo: "{{ divan_repo }}"
+    version: "{{ divan_branch }}"
     update: no  # only clone, don't choke on pending modifications
     accept_hostkey: yes
 
 
 - name: decrypt repository
   import_tasks: transcrypt.yml
-  when: "dev_ivansible_password != ''"
-  tags: dev_ivansible_decrypt
+  when: "divan_password != ''"
+  tags: divan_decrypt
 
 
 - name: install system packages
   apt:
-    name: "{{ dev_ivansible_system_packages }}"
+    name: "{{ divan_system_packages }}"
   become: true
 
 - name: setup virtual environment
   pip:
-    requirements: "{{ dev_ivansible_dir }}/requirements.txt"
-    virtualenv: "{{ dev_ivansible_dir }}/.venv"
-    virtualenv_python: "{{ dev_ivansible_python }}"
+    requirements: "{{ divan_dir }}/requirements.txt"
+    virtualenv: "{{ divan_dir }}/.venv"
+    virtualenv_python: "{{ divan_python }}"
 
 
 - name: install galaxy roles
   command: >
-    "{{ dev_ivansible_dir }}/.venv/bin/ansible-galaxy"
+    "{{ divan_dir }}/.venv/bin/ansible-galaxy"
         install
-        -r "{{ dev_ivansible_dir }}/{{ dev_ivansible_roles_list_file }}"
-        -p "{{ dev_ivansible_dir }}/{{ dev_ivansible_roles_subdir }}"
+        -r "{{ divan_dir }}/{{ divan_roles_list_file }}"
+        -p "{{ divan_dir }}/{{ divan_roles_subdir }}"
         -f
   args:
-    chdir: "{{ dev_ivansible_dir }}"
-    creates: "{{ dev_ivansible_dir }}/{{ dev_ivansible_roles_subdir }}/{{ dev_ivansible_roles_check_role }}"
-  when: "dev_ivansible_roles_list_file != ''
-         and dev_ivansible_roles_check_role != ''"
+    chdir: "{{ divan_dir }}"
+    creates: "{{ divan_dir }}/{{ divan_roles_subdir }}/{{ divan_roles_check_role }}"
+  when: "divan_roles_list_file != ''
+         and divan_roles_check_role != ''"
+  tags: divan_galaxy
 
 - name: check that non-empty galaxy_login file exists
   stat:
     path: ~/.ansible_galaxy
   register: dot_ansible_galaxy
-  tags: dev_ivansible_galaxy
+  tags: divan_galaxy
 
 - name: perform galaxy login using github token
   command: >
-    "{{ dev_ivansible_dir }}/.venv/bin/ansible-galaxy"
+    "{{ divan_dir }}/.venv/bin/ansible-galaxy"
         login
-        --github-token "{{ dev_ivansible_github_token }}"
-  when: "dev_ivansible_github_token != ''
+        --github-token "{{ divan_github_token }}"
+  when: "divan_github_token != ''
          and (dot_ansible_galaxy.stat.exists == false
               or dot_ansible_galaxy.stat.size == 0)"
-  tags: dev_ivansible_galaxy
+  tags: divan_galaxy
 
 
 - name: template of insecure developer login to vagrant boxes
@@ -83,5 +84,5 @@
       {# Never report about making such awful things #}
         LogLevel ERROR
     marker: '# {mark} vagrant box example'
-  tags: dev_ivansible_ssh_config
+  tags: divan_ssh_config
 ...
