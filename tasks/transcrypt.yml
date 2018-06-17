@@ -1,4 +1,21 @@
 ---
+- name: detect latest transcrypt release
+  uri:
+    url: https://github.com/elasticdog/transcrypt/releases/latest
+    method: HEAD
+  connection: local
+  register: latest_release
+  when: dev_ivansible_transcrypt_release == 'latest'
+
+- set_fact:
+    dev_ivansible_transcrypt_release: "{{ latest_release.url | basename }}"
+  when: latest_release is not skipped
+
+- debug:
+    msg: "latest transcrypt release: {{ dev_ivansible_transcrypt_release }}"
+  run_once: yes
+  when: latest_release is not skipped
+
 - name: install transcrypt
   get_url:
     url: "{{ dev_ivansible_transcrypt_url }}"

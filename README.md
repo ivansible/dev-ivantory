@@ -61,11 +61,13 @@ Ansible will compare file contents with is base name, and if they do not
 match, report decryption failure and abort the scenario.
 
 
-    dev_ivansible_transcrypt_release: v1.1.0
+    dev_ivansible_transcrypt_release: latest
 
 Transcrypt version to use. Check out
 https://github.com/elasticdog/transcrypt/releases
 for new releases.
+If you set this to `latest` instead of concrete release number, the role
+will detect latest release automatically.
 
     dev_ivansible_transcrypt_reinstall: false
 
