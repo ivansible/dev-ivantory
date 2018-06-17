@@ -13,6 +13,7 @@ dev_ivansible_roles_subdir: roles-galaxy
 dev_ivansible_roles_list_file: roles-import.yml
 dev_ivansible_roles_check_role: ivansible.lin-base
 
+dev_ivansible_github_token: ""
 
 dev_ivansible_python: python3
 

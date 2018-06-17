@@ -49,6 +49,22 @@
   when: "dev_ivansible_roles_list_file != ''
          and dev_ivansible_roles_check_role != ''"
 
+- name: check that non-empty galaxy_login file exists
+  stat:
+    path: ~/.ansible_galaxy
+  register: dot_ansible_galaxy
+  tags: dev_ivansible_galaxy
+
+- name: perform galaxy login using github token
+  command: >
+    "{{ dev_ivansible_dir }}/.venv/bin/ansible-galaxy"
+        login
+        --github-token "{{ dev_ivansible_github_token }}"
+  when: "dev_ivansible_github_token != ''
+         and (dot_ansible_galaxy.stat.exists == false
+              or dot_ansible_galaxy.stat.size == 0)"
+  tags: dev_ivansible_galaxy
+
 
 - name: template of insecure developer login to vagrant boxes
   # See: http://hakunin.com/six-ansible-practices

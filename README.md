@@ -88,6 +88,11 @@ The script will run `ansible-galaxy` and import roles from given `list file`
 into given role `subdir`ectory if given `check role` does not exist.
 
 
+    dev_ivansible_github_token: ""
+
+Perform galaxy login with given github token.
+
+
 ## Tags
 
 - `dev_ivansible_prepare_user` - Install SSH access keys,
