@@ -9,7 +9,8 @@ This role will:
   [transcrypt](https://github.com/elasticdog/transcrypt);
 - decypher the repository;
 - harden permissions of secret files;
-- *[TODO]* install galaxy roles.
+- login to ansible galaxy using github token;
+- import required roles;
 
 After that you can control `ivansible` inventory and run playbooks.
 
