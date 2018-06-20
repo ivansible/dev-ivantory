@@ -1,10 +1,11 @@
-# Role ivansible.dev-ivansible
+# Role ivansible.dev-ivansible2
 
 This role will:
 
 - install github and gitlab access keys (via `ivansible.dev-user` role);
 - setup bash and git aliases for development (via `ivansible.dev-user` role);
-- check out `ivansible` inventory and playbooks from gitlab;
+- install ansible locally for user (via `ivansible.dev-ansible` role);
+- check out `ivansible2` inventory and playbooks from gitlab;
 - configure cipher and password for
   [transcrypt](https://github.com/elasticdog/transcrypt);
 - decypher the repository;
@@ -26,7 +27,7 @@ This key will be forwarded to the installation.
 
 Available variables are listed below, along with default values.
 The values will be usually configured in
-`group_vars/workspace/secret/dev-ivansible.yml`
+`group_vars/workspace/secret/dev-ivansible2.yml`
 
 
     divan_repo: git@githab.com:username/reponame
@@ -76,11 +77,6 @@ Normally, if transcrypt is already installed, it will not be upgraded.
 This flag allows for upgrades.
 
 
-    divan_python: python3
-
-What python version to use for ansible: `python` or `python3`.
-
-
     divan_roles_subdir: roles-galaxy
     divan_roles_list_file: roles-import.yml
     divan_roles_check_role: ivansible.lin-base
@@ -94,16 +90,25 @@ into given role `subdir`ectory if given `check role` does not exist.
 Perform galaxy login with given github token.
 
 
+    divan_venv_dir: ~/.ansible/venv
+
+Directory for ansible virtual environment.
+
+
+    divan_skip_prepare: false
+
+Set this to `true` if you have already run `dev-user` and `dev-ansible`.
+
+
 ## Tags
 
-- `divan_prepare_user` - Install SSH access keys,
-                                 setup bash and git aliases
-- `divan_decrypt` - Decrypt secret files in the repository
-- `divan_harden_secrets` - Harden file permissions
-                                   in secret directories
-- `divan_galaxy` - Galaxy login and role import
-- `divan_ssh_config` - Add example of login settings
-                               for vagrant boxes to `~/.ssh/config`
+- `divan_prepare_user` -- Install SSH access keys, setup bash and git aliases
+- `divan_prepare_ansible` -- Install local user ansible
+- `divan_decrypt` -- Decrypt secret files in the repository
+- `divan_harden_secrets` -- Harden file permissions in secret directories
+- `divan_galaxy` -- Galaxy login and role import
+- `divan_ssh_config` -- Add example of login settings for vagrant boxes
+                        to `~/.ssh/config`
 
 
 ## Dependencies
@@ -117,12 +122,13 @@ This role will invoke `ivansible.dev-user` with `dev_user_install_keys`.
 
     - hosts: dock2
       roles:
-        - { role: ivansible.dev-ivansible }
+        - { role: ivansible.dev-ivansible2 }
 
 
 ## Testing
 
-    ansible-playbook plays-all/test-role.yml -e role=dev-ivansible -l dock2
+    ansible-playbook plays-all/test-role.yml -e role=ivansible.dev-ivansible2 -l dock2
+    ./scripts/run-role.sh .dev-ivansible2 dock2
 
 
 ## License

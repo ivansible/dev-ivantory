@@ -1,12 +1,20 @@
 ---
-# tasks file for dev-ivansible
+# tasks file for dev-ivansible2
 
 - import_role:
     name: ivansible.dev-user
   vars:
     dev_user_install_keys: true
     dev_user_setup_system: true
+  when: divan_skip_prepare | bool == false
   tags: divan_prepare_user
+
+- import_role:
+    name: ivansible.dev-ansible
+  vars:
+    dev_ansible_dir: "{{ divan_venv_dir }}"
+  when: divan_skip_prepare | bool == false
+  tags: divan_prepare_ansible
 
 
 - name: checkout inventory and playbooks
@@ -24,21 +32,9 @@
   tags: divan_decrypt
 
 
-- name: install system packages
-  apt:
-    name: "{{ divan_system_packages }}"
-  become: true
-
-- name: setup virtual environment
-  pip:
-    requirements: "{{ divan_dir }}/requirements.txt"
-    virtualenv: "{{ divan_dir }}/.venv"
-    virtualenv_python: "{{ divan_python }}"
-
-
 - name: install galaxy roles
   command: >
-    "{{ divan_dir }}/.venv/bin/ansible-galaxy"
+    "{{ divan_venv_dir }}/bin/ansible-galaxy"
         install
         -r "{{ divan_dir }}/{{ divan_roles_list_file }}"
         -p "{{ divan_dir }}/{{ divan_roles_subdir }}"
@@ -58,7 +54,7 @@
 
 - name: perform galaxy login using github token
   command: >
-    "{{ divan_dir }}/.venv/bin/ansible-galaxy"
+    "{{ divan_venv_dir }}/bin/ansible-galaxy"
         login
         --github-token "{{ divan_github_token }}"
   when: "divan_github_token != ''

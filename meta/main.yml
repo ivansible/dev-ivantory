@@ -2,6 +2,7 @@
 dependencies: []
 # - role: ivansible.dev-user
 #   dev_user_install_keys: true
+# - role: ivansible.dev-ansible
 
 galaxy_info:
   author: "Ivan Andreev"
@@ -18,6 +19,8 @@ galaxy_info:
 
   galaxy_tags:
     - developer
-    - bash
     - ansible
+    - bash
+    - ssh
+    - github
 ...
