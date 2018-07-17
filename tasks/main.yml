@@ -36,9 +36,11 @@
   command: >
     "{{ divan_venv_dir }}/bin/ansible-galaxy"
         install
-        -r "{{ divan_dir }}/{{ divan_roles_list_file }}"
-        -p "{{ divan_dir }}/{{ divan_roles_subdir }}"
-        -f
+        --role-file="{{ divan_dir | expanduser }}/{{ divan_roles_list_file }}"
+        --roles-path="{{ divan_dir | expanduser }}/{{ divan_roles_subdir }}"
+        --no-deps
+        --keep-scm-meta
+        --force
   args:
     chdir: "{{ divan_dir }}"
     creates: "{{ divan_dir }}/{{ divan_roles_subdir }}/{{ divan_roles_check_role }}"
