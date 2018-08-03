@@ -24,6 +24,7 @@
     version: "{{ divan_branch }}"
     update: no  # only clone, don't choke on pending modifications
     accept_hostkey: yes
+  tags: divan_checkout
 
 
 - name: decrypt repository

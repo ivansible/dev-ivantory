@@ -104,6 +104,7 @@ Set this to `true` if you have already run `dev-user` and `dev-ansible`.
 
 - `divan_prepare_user` -- Install SSH access keys, setup bash and git aliases
 - `divan_prepare_ansible` -- Install local user ansible
+- `divan_checkout` -- Checkout inventory and playbooks
 - `divan_decrypt` -- Decrypt secret files in the repository
 - `divan_harden_secrets` -- Harden file permissions in secret directories
 - `divan_galaxy` -- Galaxy login and role import
