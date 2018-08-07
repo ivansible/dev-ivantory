@@ -121,15 +121,15 @@ This role will invoke `ivansible.dev-user` with `dev_user_install_keys`.
 
 ## Example Playbook
 
-    - hosts: dock2
+    - hosts: vag2
       roles:
         - { role: ivansible.dev-ivansible2 }
 
 
 ## Testing
 
-    ansible-playbook plays-all/test-role.yml -e role=ivansible.dev-ivansible2 -l dock2
-    ./scripts/run-role.sh .dev-ivansible2 dock2
+    ansible-playbook plays-all/run-role.yml -e role=ivansible.dev-ivansible2 -l vag2
+    ./scripts/run-role.sh .dev-ivansible2 vag2
 
 
 ## License
