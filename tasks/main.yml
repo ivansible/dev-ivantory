@@ -69,7 +69,7 @@
 - name: template of insecure developer login to vagrant boxes
   # See: http://hakunin.com/six-ansible-practices
   blockinfile:
-    dest: .ssh/config
+    path: ~/.ssh/config
     create: yes
     mode: 0600
     block: |
