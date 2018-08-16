@@ -1,10 +1,11 @@
 ---
 dependencies: []
-# - role: ivansible.dev-user
+# - role: ivansible.dev_user
 #   dev_user_install_keys: true
-# - role: ivansible.dev-ansible
+# - role: ivansible.dev_ansible
 
 galaxy_info:
+  role_name: dev_ivansible2
   author: "Ivan Andreev"
   description: "Deploy `ivansible` inventory and playbooks"
   company: "IvanSible"

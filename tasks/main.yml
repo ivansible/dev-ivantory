@@ -2,7 +2,7 @@
 # tasks file for dev-ivansible2
 
 - import_role:
-    name: ivansible.dev-user
+    name: ivansible.dev_user
   vars:
     dev_user_install_keys: true
     dev_user_setup_system: true
@@ -10,7 +10,7 @@
   tags: divan_prepare_user
 
 - import_role:
-    name: ivansible.dev-ansible
+    name: ivansible.dev_ansible
   vars:
     dev_ansible_dir: "{{ divan_venv_dir }}"
   when: divan_skip_prepare | bool == false

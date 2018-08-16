@@ -1,10 +1,10 @@
-# Role ivansible.dev-ivansible2
+# ivansible.dev_ivansible2
 
 This role will:
 
-- install github and gitlab access keys (via `ivansible.dev-user` role);
-- setup bash and git aliases for development (via `ivansible.dev-user` role);
-- install ansible locally for user (via `ivansible.dev-ansible` role);
+- install github and gitlab access keys (via `ivansible.dev_user` role);
+- setup bash and git aliases for development (via `ivansible.dev_user` role);
+- install ansible locally for user (via `ivansible.dev_ansible` role);
 - check out `ivansible2` inventory and playbooks from gitlab;
 - configure cipher and password for
   [transcrypt](https://github.com/elasticdog/transcrypt);
@@ -27,7 +27,7 @@ This key will be forwarded to the installation.
 
 Available variables are listed below, along with default values.
 The values will be usually configured in
-`group_vars/workspace/secret/dev-ivansible2.yml`
+`group_vars/workspace/secret/dev_ivansible2.yml`
 
 
     divan_repo: git@githab.com:username/reponame
@@ -79,7 +79,7 @@ This flag allows for upgrades.
 
     divan_roles_subdir: roles-galaxy
     divan_roles_list_file: roles-import.yml
-    divan_roles_check_role: ivansible.lin-base
+    divan_roles_check_role: ivansible.lin_base
 
 The script will run `ansible-galaxy` and import roles from given `list file`
 into given role `subdir`ectory if given `check role` does not exist.
@@ -97,7 +97,7 @@ Directory for ansible virtual environment.
 
     divan_skip_prepare: false
 
-Set this to `true` if you have already run `dev-user` and `dev-ansible`.
+Set this to `true` if you have already run `dev_user` and `dev_ansible` roles.
 
 
 ## Tags
@@ -114,7 +114,7 @@ Set this to `true` if you have already run `dev-user` and `dev-ansible`.
 
 ## Dependencies
 
-This role will invoke `ivansible.dev-user` with `dev_user_install_keys`.
+This role will invoke `ivansible.dev_user` with `dev_user_install_keys`.
 
 **Note:** Currently this dependency is **not** recorded in `meta/main.yml`.
 
@@ -123,12 +123,12 @@ This role will invoke `ivansible.dev-user` with `dev_user_install_keys`.
 
     - hosts: vag2
       roles:
-        - { role: ivansible.dev-ivansible2 }
+        - { role: ivansible.dev_ivansible2 }
 
 
 ## Testing
 
-    ansible-playbook plays-all/run-role.yml -e role=ivansible.dev-ivansible2 -l vag2
+    ansible-playbook plays-all/run-role.yml -e role=ivansible.dev_ivansible2 -l vag2
     ./scripts/run-role.sh .dev-ivansible2 vag2
 
 
