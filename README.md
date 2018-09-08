@@ -111,9 +111,12 @@ Set this to `true` if you have already run `dev_user` and `dev_ansible` roles.
 
 ## Dependencies
 
-This role will invoke `ivansible.dev_user` with `dev_user_install_keys`.
+This role will invoke `ivansible.dev_user` with `dev_user_setup_system` enabled.
 
-**Note:** Currently this dependency is **not** recorded in `meta/main.yml`.
+Note: Currently this dependency is **not** recorded in `meta/main.yml`.
+
+You are also recommended to enable `dev_user_install_keys` in inventory,
+else roles won't work (usually eligible for `permitted` inventory group).
 
 
 ## Example Playbook

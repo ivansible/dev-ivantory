@@ -1,7 +1,7 @@
 ---
 dependencies: []
 # - role: ivansible.dev_user
-#   dev_user_install_keys: true
+#   dev_user_setup_system: true
 # - role: ivansible.dev_ansible
 
 galaxy_info:

@@ -4,7 +4,8 @@
 - import_role:
     name: ivansible.dev_user
   vars:
-    dev_user_install_keys: true
+    # please enable dev_user_install_keys in inventory for permitted group
+    #dev_user_install_keys: true
     dev_user_setup_system: true
   when: divan_skip_prepare | bool == false
   tags: divan_prepare_user
