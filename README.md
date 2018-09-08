@@ -26,9 +26,6 @@ This key will be forwarded to the installation.
 ## Variables
 
 Available variables are listed below, along with default values.
-The values will be usually configured in
-`group_vars/workspace/secret/dev_ivansible2.yml`
-
 
     divan_repo: git@githab.com:username/reponame
 
