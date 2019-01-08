@@ -2,10 +2,10 @@
 
 This role will:
 
-- install github and gitlab access keys (via `ivansible.dev_user` role);
+- install github (and gitlab) access keys (via `ivansible.dev_user` role);
 - setup bash and git aliases for development (via `ivansible.dev_user` role);
 - install ansible locally for user (via `ivansible.dev_ansible` role);
-- check out `ivansible2` inventory and playbooks from gitlab;
+- check out `ivansible2` inventory and playbooks from github;
 - configure cipher and password for
   [transcrypt](https://github.com/elasticdog/transcrypt);
 - decypher the repository;
@@ -27,9 +27,9 @@ This key will be forwarded to the installation.
 
 Available variables are listed below, along with default values.
 
-    divan_repo: git@githab.com:username/reponame
+    divan_repo: git@github.com:username/reponame.git
 
-URL of gitlab repository with ivansible.
+URL of github repository with ivansible.
 
     divan_branch: master
 
