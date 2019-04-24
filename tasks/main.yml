@@ -1,8 +1,10 @@
 ---
 # tasks file for dev-ivantory
 
-- import_role:
+- include_role:
     name: ivansible.dev_user
+    apply:
+      tags: divan_prepare_user
   vars:
     # please enable dev_user_install_keys in inventory for permitted group
     #dev_user_install_keys: true
@@ -10,8 +12,10 @@
   when: divan_skip_prepare | bool == false
   tags: divan_prepare_user
 
-- import_role:
+- include_role:
     name: ivansible.dev_ansible
+    apply:
+      tags: divan_prepare_user
   vars:
     dev_ansible_dir: "{{ divan_venv_dir }}"
   when: divan_skip_prepare | bool == false
