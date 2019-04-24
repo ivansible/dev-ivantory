@@ -1,11 +1,11 @@
-# ivansible.dev_ivansible2
+# ivansible.dev_ivantory
 
 This role will:
 
 - install github (and gitlab) access keys (via `ivansible.dev_user` role);
 - setup bash and git aliases for development (via `ivansible.dev_user` role);
 - install ansible locally for user (via `ivansible.dev_ansible` role);
-- check out `ivansible2` inventory and playbooks from github;
+- check out `ivantory` inventory and playbooks from github;
 - configure cipher and password for
   [transcrypt](https://github.com/elasticdog/transcrypt);
 - decypher the repository;
@@ -35,7 +35,7 @@ URL of github repository with ivansible.
 
 Repository branch to checkout.
 
-    divan_dir: ~/dev/ivansible2
+    divan_dir: ~/devel/ivantory
 
 Directory for checkout.
 
@@ -123,13 +123,13 @@ else roles won't work (usually eligible for `permitted` inventory group).
 
     - hosts: vag2
       roles:
-        - { role: ivansible.dev_ivansible2 }
+        - { role: ivansible.dev_ivantory }
 
 
 ## Testing
 
-    ansible-playbook plays-all/run-role.yml -e role=ivansible.dev_ivansible2 -l vag2
-    ./scripts/run-role.sh .dev-ivansible2 vag2
+    ansible-playbook plays-all/run-role.yml -e role=ivansible.dev_ivantory -l vag2
+    ./scripts/role.sh .dev-ivantory vag2
 
 
 ## License

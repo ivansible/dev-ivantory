@@ -5,7 +5,7 @@ dependencies: []
 # - role: ivansible.dev_ansible
 
 galaxy_info:
-  role_name: dev_ivansible2
+  role_name: dev_ivantory
   author: "Ivan Andreev"
   description: "Deploy `ivansible` inventory and playbooks"
   company: "IvanSible"

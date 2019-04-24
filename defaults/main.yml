@@ -1,11 +1,11 @@
 ---
-# defaults file for dev-ivansible2
+# defaults file for dev-ivantory
 
 divan_skip_prepare: false
 
 divan_repo: please_change_me
 divan_branch: master
-divan_dir: ~/devel/ivansible2
+divan_dir: ~/devel/ivantory
 
 # same as in the dev-ansible role
 divan_venv_dir: '~/.ansible/venv'
