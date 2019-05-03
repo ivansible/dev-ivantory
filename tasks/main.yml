@@ -9,7 +9,7 @@
     # please enable dev_user_install_keys in inventory for permitted group
     #dev_user_install_keys: true
     dev_user_setup_system: true
-  when: divan_skip_prepare | bool == false
+  when: not divan_skip_prepare |bool
   tags: divan_prepare_user
 
 - include_role:
@@ -18,7 +18,7 @@
       tags: divan_prepare_user
   vars:
     dev_ansible_dir: "{{ divan_venv_dir }}"
-  when: divan_skip_prepare | bool == false
+  when: not divan_skip_prepare |bool
   tags: divan_prepare_ansible
 
 
@@ -66,7 +66,7 @@
         login
         --github-token "{{ divan_github_token }}"
   when: "divan_github_token != ''
-         and (dot_ansible_galaxy.stat.exists == false
+         and (not dot_ansible_galaxy.stat.exists
               or dot_ansible_galaxy.stat.size == 0)"
   tags: divan_galaxy
 

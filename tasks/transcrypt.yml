@@ -7,7 +7,8 @@
   register: latest_release
   when: divan_transcrypt_release == 'latest'
 
-- set_fact:
+- name: extract transcrypt release from github page
+  set_fact:
     divan_transcrypt_release: "{{ latest_release.url | basename }}"
   when: latest_release is not skipped
 
@@ -53,20 +54,23 @@
         src: "{{ divan_dir }}/{{ divan_check_file }}"
       register: slurped_check_file
 
-    - set_fact:
+    - name: derive base name and content of check file
+      set_fact:
         check_file_content: "{{ (slurped_check_file['content'] | b64decode).strip() }}"
         check_file_basename: "{{ divan_check_file | basename }}"
 
     - name: verify content of the check file
       assert:
         that: "check_file_content == check_file_basename"
+        quiet: yes
   rescue:
     - name: remove failed checkout
       file:
         path: "{{ divan_dir }}"
         state: absent
 
-    - fail:
+    - name: decryption failed
+      fail:
         msg: "Decryption failed! Maybe password is wrong? Aborting."
   when: divan_check_file != ""
   tags: divan_check_file
@@ -82,7 +86,8 @@
       failed_when: false
       register: transcrypt_list
 
-    - set_fact:
+    - name: derive list of secret files
+      set_fact:
         secret_repo_files: "{{ transcrypt_list.stdout_lines
                              | map('regex_replace', '^', divan_dir + '/')
                              | list }}"
@@ -92,14 +97,17 @@
         path: "{{ item }}"
         mode: 0600
       loop: "{{ secret_repo_files }}"
-  when: "divan_harden_quickway | bool == false"
+  when: not divan_harden_quickway |bool
   tags: divan_harden_secrets
 
 - name: harden permissions (quick way)
-  shell: transcrypt --list | xargs -r chmod 600
+  shell: |
+    set -eo pipefail
+    transcrypt --list | xargs -r chmod 600
   args:
+    executable: /bin/bash
     chdir: "{{ divan_dir }}"
   changed_when: false
-  when: "divan_harden_quickway | bool == true"
+  when: divan_harden_quickway |bool
   tags: divan_harden_secrets
 ...
