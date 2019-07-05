@@ -5,10 +5,10 @@ divan_skip_prepare: false
 
 divan_repo: please_change_me
 divan_branch: master
-divan_dir: ~/devel/ivantory
+divan_dir: "{{ ansible_user_dir }}/devel/ivantory"
 
 # same as in the dev-ansible role
-divan_venv_dir: '~/.ansible/venv'
+divan_venv_dir: "{{ ansible_user_dir }}/.ansible/venv"
 
 divan_cipher: aes-256-cbc
 divan_password: ""

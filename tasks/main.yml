@@ -56,7 +56,7 @@
 
 - name: check that non-empty galaxy_login file exists
   stat:
-    path: ~/.ansible_galaxy
+    path: "{{ ansible_user_dir }}/.ansible_galaxy"
   register: dot_ansible_galaxy
   tags: divan_galaxy
 
@@ -74,7 +74,7 @@
 - name: template of insecure developer login to vagrant boxes
   # See: http://hakunin.com/six-ansible-practices
   blockinfile:
-    path: ~/.ssh/config
+    path: "{{ ansible_user_dir }}/.ssh/config"
     create: yes
     mode: 0600
     block: |
