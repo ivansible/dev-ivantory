@@ -14,8 +14,8 @@ divan_cipher: aes-256-cbc
 divan_password: ""
 divan_check_file: ""
 
-divan_roles_subdir: roles-galaxy
-divan_roles_list_file: requirements.yml
+divan_roles_dir: "{{ ansible_user_dir }}/devel/galaxy"
+divan_roles_list_file: "{{ divan_dir }}/galaxy.yml"
 divan_roles_check_role: ivansible.lin_base
 
 divan_github_token: ""

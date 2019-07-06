@@ -74,8 +74,8 @@ Normally, if transcrypt is already installed, it will not be upgraded.
 This flag allows for upgrades.
 
 
-    divan_roles_subdir: roles-galaxy
-    divan_roles_list_file: roles-import.yml
+    divan_roles_dir: ~/devel/galaxy
+    divan_roles_list_file: galaxy.yml
     divan_roles_check_role: ivansible.lin_base
 
 The script will run `ansible-galaxy` and import roles from given `list file`
