@@ -27,6 +27,12 @@ This key will be forwarded to the installation.
 
 Available variables are listed below, along with default values.
 
+    real_ssh_port: <optional>
+This optional setting lets the user override an auto-detected ssh port value,
+which may be incorrect if ansible is run by the hashicorop packer or through
+a reverse ssh or port forwarder. An incorrect value is generally harmless
+though, as the role uses it only to fill in a comment.
+
     divan_repo: git@github.com:username/reponame.git
 
 URL of github repository with ivansible.

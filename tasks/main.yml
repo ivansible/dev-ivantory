@@ -85,7 +85,7 @@
     block: |
       Host vagrant-box
         Hostname vagrant-box.dev
-        Port {{ ansible_port }}
+        Port {{ real_ssh_port | default(ansible_port) }}
       {# Never complain about ever-changing host keys #}
         StrictHostKeyChecking no
       {# Never try to remember those keys via known_hosts #}
