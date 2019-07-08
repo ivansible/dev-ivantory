@@ -43,7 +43,7 @@
   file:
     path: "{{ divan_decrypted_flag }}"
     state: touch
-  when: "transcrypt_result is successful"
+  when: transcrypt_result is successful
   changed_when: false
 
 
@@ -72,7 +72,7 @@
     - name: decryption failed
       fail:
         msg: "Decryption failed! Maybe password is wrong? Aborting."
-  when: divan_check_file != ""
+  when: divan_check_file != ''
   tags: divan_check_file
 
 

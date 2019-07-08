@@ -1,6 +1,6 @@
 ---
 # defaults file for dev-ivantory
-
+is_permitted: no
 divan_skip_prepare: false
 
 divan_repo: please_change_me

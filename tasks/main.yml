@@ -21,7 +21,6 @@
   when: not divan_skip_prepare |bool
   tags: divan_prepare_ansible
 
-
 - name: checkout inventory and playbooks
   git:
     dest: "{{ divan_dir }}"
@@ -29,52 +28,18 @@
     version: "{{ divan_branch }}"
     update: no  # only clone, don't choke on pending modifications
     accept_hostkey: yes
+  when: is_permitted |bool
   tags: divan_checkout
-
 
 - name: decrypt repository
   import_tasks: transcrypt.yml
-  when: divan_password != ''
+  when: divan_password and is_permitted |bool
   tags: divan_decrypt
 
-
-- name: create directory for galaxy roles
-  file:
-    state: directory
-    path: "{{ divan_roles_dir }}"
+- name: setup galaxy roles
+  import_tasks: galaxy.yml
+  when: is_permitted |bool
   tags: divan_galaxy
-
-- name: install galaxy roles
-  command: >
-    "{{ divan_venv_dir }}/bin/ansible-galaxy"
-        install
-        --role-file="{{ divan_roles_list_file }}"
-        --roles-path="{{ divan_roles_dir }}"
-        --no-deps
-        --keep-scm-meta
-        --force
-  args:
-    chdir: "{{ divan_dir }}"
-    creates: "{{ divan_roles_dir }}/{{ divan_roles_check_role }}"
-  when: divan_roles_list_file and divan_roles_check_role
-  tags: divan_galaxy
-
-- name: check that non-empty galaxy_login file exists
-  stat:
-    path: "{{ ansible_user_dir }}/.ansible_galaxy"
-  register: dot_ansible_galaxy
-  tags: divan_galaxy
-
-- name: perform galaxy login using github token
-  command: >
-    "{{ divan_venv_dir }}/bin/ansible-galaxy"
-        login
-        --github-token "{{ divan_github_token }}"
-  when: "divan_github_token != ''
-         and (not dot_ansible_galaxy.stat.exists
-              or dot_ansible_galaxy.stat.size == 0)"
-  tags: divan_galaxy
-
 
 - name: template of insecure developer login to vagrant boxes
   # See: http://hakunin.com/six-ansible-practices
