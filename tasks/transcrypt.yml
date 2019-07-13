@@ -5,6 +5,8 @@
     method: HEAD
   connection: local
   register: latest_release
+  # github sporadically fails from .ru
+  until: latest_release is successful
   when: divan_transcrypt_release == 'latest'
 
 - name: extract transcrypt release from github page

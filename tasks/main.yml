@@ -28,6 +28,9 @@
     version: "{{ divan_branch }}"
     update: no  # only clone, don't choke on pending modifications
     accept_hostkey: yes
+  register: checkout_result
+  # github sporadically fails from .ru
+  until: "'timed out' not in checkout_result.stderr |default('')"
   when: is_permitted |bool
   tags: divan_checkout
 
