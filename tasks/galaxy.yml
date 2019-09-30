@@ -4,6 +4,13 @@
     state: directory
     path: "{{ divan_roles_dir }}"
 
+- name: create symbolic link for galaxy roles
+  file:
+    state: link
+    src: "{{ divan_roles_dir |relpath(divan_dir) }}"
+    dest: "{{ divan_dir }}/roles-galaxy"
+  tags: divan_links
+
 - name: install galaxy roles
   command: >
     "{{ divan_venv_dir }}/bin/ansible-galaxy"

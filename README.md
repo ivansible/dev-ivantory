@@ -52,11 +52,11 @@ with rewriting possible local modifications by ansible git module.
 
     divan_cipher: aes-256-cbc
 
-Transcrypt cipher for secret settings.
+Crypto cipher for secret settings.
 
     divan_password: ""
 
-Transcrypt password for secret settings.
+Crypto password for secret settings.
 Empty string means that repository is not encrypted.
 
     divan_check_file: ""
@@ -66,17 +66,23 @@ Ansible will compare file contents with is base name, and if they do not
 match, report decryption failure and abort the scenario.
 
 
-    divan_transcrypt_release: latest
+    divan_cryptor_exe: /usr/local/bin/transcrypt.sh
+Location of cryptor binary.
 
-Transcrypt version to use. Check out
+    divan_cryptor_configured_flag: ""
+Cryptor sets this Git flag when configuration is done.
+
+    divan_cryptor_release: latest
+
+Cryptor version to use. Check out
 https://github.com/elasticdog/transcrypt/releases
 for new releases.
 If you set this to `latest` instead of concrete release number, the role
 will detect latest release automatically.
 
-    divan_transcrypt_reinstall: false
+    divan_cryptor_reinstall: false
 
-Normally, if transcrypt is already installed, it will not be upgraded.
+Normally, if cryptor is already installed, it will not be upgraded.
 This flag allows for upgrades.
 
 
@@ -113,6 +119,7 @@ Set this to `true` if you have already run `dev_user` and `dev_ansible` roles.
 - `divan_galaxy` -- Galaxy login and role import
 - `divan_ssh_config` -- Add example of login settings for vagrant boxes
                         to `~/.ssh/config`
+- `divan_links` -- Create symbolic links for galaxy roles, requirements and virtualenv
 
 
 ## Dependencies

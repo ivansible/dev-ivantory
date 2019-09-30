@@ -10,7 +10,9 @@
     #dev_user_install_keys: true
     dev_user_setup_system: true
   when: not divan_skip_prepare |bool
-  tags: divan_prepare_user
+  tags:
+  - divan_prepare_user
+  - divan_prepare
 
 - include_role:
     name: ivansible.dev_ansible
@@ -19,7 +21,9 @@
   vars:
     dev_ansible_dir: "{{ divan_venv_dir }}"
   when: not divan_skip_prepare |bool
-  tags: divan_prepare_ansible
+  tags:
+  - divan_prepare_ansible
+  - divan_prepare
 
 - name: checkout inventory and playbooks
   git:
@@ -34,8 +38,24 @@
   when: is_permitted |bool
   tags: divan_checkout
 
+- name: create symbolic link for virtualenv
+  file:
+    state: link
+    src: "{{ divan_venv_dir |relpath(divan_dir) }}"
+    dest: "{{ divan_venv_link }}"
+  tags: divan_links
+
+- name: create symbolic link for requirements
+  file:
+    state: link
+    src: "{{ divan_requirements_file |relpath(divan_requirements_link |dirname) }}"
+    dest: "{{ divan_requirements_link }}"
+  tags: divan_links
+
+# note: ansible requirements are already installed by ivansible.dev_ansible
+
 - name: decrypt repository
-  import_tasks: transcrypt.yml
+  import_tasks: crypt.yml
   when: divan_password and is_permitted |bool
   tags: divan_decrypt
 

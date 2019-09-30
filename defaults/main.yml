@@ -13,19 +13,18 @@ divan_venv_dir: "{{ ansible_user_dir }}/.ansible/venv"
 divan_cipher: aes-256-cbc
 divan_password: ""
 divan_check_file: ""
+divan_check_phrase: ""
 
 divan_roles_dir: "{{ ansible_user_dir }}/devel/galaxy"
-divan_roles_list_file: "{{ divan_dir }}/galaxy.yml"
+divan_roles_list_file: "{{ divan_dir }}/requirements.yml"
 divan_roles_check_role: ivansible.lin_base
+
+divan_venv_link: "{{ divan_dir }}/.venv"
+divan_requirements_file: "{{ divan_dir }}/ansible-requirements.txt"
+divan_requirements_link: "{{ divan_venv_dir |dirname }}/ivantory-requirements.txt"
 
 divan_github_token: ""
 
-divan_transcrypt_reinstall: false
-divan_transcrypt_release: latest
-divan_transcrypt_url: "https://raw.githubusercontent.com/elasticdog/transcrypt/{{ divan_transcrypt_release }}/transcrypt"
-divan_transcrypt_executable: /usr/local/bin/transcrypt
-
-divan_decrypted_flag: "{{ divan_dir }}/.git/crypt/is-decrypted"
-
-divan_harden_quickway: true
+divan_cryptor_exe: /usr/local/bin/transcrypt.sh
+divan_cryptor_configured_flag: ""
 ...
