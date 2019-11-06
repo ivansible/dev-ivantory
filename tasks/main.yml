@@ -38,18 +38,8 @@
   when: is_permitted |bool
   tags: divan_checkout
 
-- name: create symbolic link for virtualenv
-  file:
-    state: link
-    src: "{{ divan_venv_dir |relpath(divan_dir) }}"
-    dest: "{{ divan_venv_link }}"
-  tags: divan_links
-
-- name: create symbolic link for requirements
-  file:
-    state: link
-    src: "{{ divan_requirements_file |relpath(divan_requirements_link |dirname) }}"
-    dest: "{{ divan_requirements_link }}"
+- name: symbolic links for ivantory
+  import_tasks: links.yml
   tags: divan_links
 
 # note: ansible requirements are already installed by ivansible.dev_ansible

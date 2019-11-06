@@ -27,4 +27,12 @@ divan_github_token: ""
 
 divan_cryptor_exe: /usr/local/bin/transcrypt.sh
 divan_cryptor_configured_flag: ""
+
+dev_ansible_link_dir: "{{ ansible_user_dir }}/bin"
+divan_linked_binaries:
+  - play
+  - role
+  - cryptor
+  - vultr
+  - gitroles
 ...

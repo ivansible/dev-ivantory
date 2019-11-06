@@ -1,0 +1,22 @@
+---
+- name: create symbolic link for virtualenv
+  file:
+    state: link
+    src: "{{ divan_venv_dir |relpath(divan_dir) }}"
+    dest: "{{ divan_venv_link }}"
+  tags: divan_links
+
+- name: create symbolic link for requirements
+  file:
+    state: link
+    src: "{{ divan_requirements_file |relpath(divan_requirements_link |dirname) }}"
+    dest: "{{ divan_requirements_link }}"
+  tags: divan_links
+
+- name: symbolic links for ivantory binaries
+  file:
+    state: link
+    src: "{{ divan_dir | relpath(dev_ansible_link_dir) }}/bin/{{ item }}"
+    dest: "{{ dev_ansible_link_dir }}/ivantory-{{ item }}"
+  loop: "{{ divan_linked_binaries }}"
+...

@@ -119,7 +119,7 @@ Set this to `true` if you have already run `dev_user` and `dev_ansible` roles.
 - `divan_galaxy` -- Galaxy login and role import
 - `divan_ssh_config` -- Add example of login settings for vagrant boxes
                         to `~/.ssh/config`
-- `divan_links` -- Create symbolic links for galaxy roles, requirements and virtualenv
+- `divan_links` -- Create symbolic links for galaxy roles, requirements etc
 
 
 ## Dependencies
