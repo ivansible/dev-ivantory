@@ -11,8 +11,8 @@
     dev_user_setup_system: true
   when: not divan_skip_prepare |bool
   tags:
-  - divan_prepare_user
-  - divan_prepare
+    - divan_prepare_user
+    - divan_prepare
 
 - include_role:
     name: ivansible.dev_ansible
@@ -22,8 +22,8 @@
     dev_ansible_dir: "{{ divan_venv_dir }}"
   when: not divan_skip_prepare |bool
   tags:
-  - divan_prepare_ansible
-  - divan_prepare
+    - divan_prepare_ansible
+    - divan_prepare
 
 - name: checkout inventory and playbooks
   git:
