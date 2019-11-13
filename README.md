@@ -1,5 +1,9 @@
 # ivansible.dev_ivantory
 
+[![Github Test Status](https://github.com/ivansible/dev-ivantory/workflows/Molecule%20test/badge.svg?branch=master)](https://github.com/ivansible/dev-ivantory/actions)
+[![Travis Test Status](https://travis-ci.org/ivansible/dev-ivantory.svg?branch=master)](https://travis-ci.org/ivansible/dev-ivantory)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-ivansible.dev__ivantory-68a.svg?style=flat)](https://galaxy.ansible.com/ivansible/dev_ivantory/)
+
 This role will:
 
 - install github (and gitlab) access keys (via `ivansible.dev_user` role);
