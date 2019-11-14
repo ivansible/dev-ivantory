@@ -15,8 +15,8 @@
   command: >
     "{{ divan_venv_dir }}/bin/ansible-galaxy"
         install
-        --role-file="{{ divan_roles_list_file }}"
-        --roles-path="{{ divan_roles_dir }}"
+        "--role-file={{ divan_roles_list_file }}"
+        "--roles-path={{ divan_roles_dir }}"
         --no-deps
         --keep-scm-meta
         --force
@@ -30,11 +30,12 @@
     path: "{{ ansible_user_dir }}/.ansible_galaxy"
   register: dot_galaxy
   changed_when: not dot_galaxy.stat.exists or dot_galaxy.stat.size == 0
+  when: divan_github_token != '' # noqa 602
 
 - name: perform galaxy login using github token
   command: >
     "{{ divan_venv_dir }}/bin/ansible-galaxy"
         login
-        --github-token "{{ divan_github_token }}"
+        "--github-token={{ divan_github_token }}"
   when: divan_github_token and dot_galaxy is changed
 ...
