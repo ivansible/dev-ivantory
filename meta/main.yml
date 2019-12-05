@@ -1,5 +1,6 @@
 ---
-dependencies: []
+dependencies:
+  - ivansible.lin_base     # for allow_sysctl
 # - role: ivansible.dev_user
 #   dev_user_setup_system: true
 # - role: ivansible.dev_ansible
