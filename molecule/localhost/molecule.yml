@@ -24,6 +24,8 @@ provisioner:
         # these pass on host:
         linbase_time_sync: true
         lin_use_firewall: ${IVATEST_FIREWALL:-true}
+        # skip github cli task since module github_release needs custom collection
+        git_hub_release: ""
   playbooks:
     prepare: ../default/prepare.yml
     converge: ../default/playbook.yml

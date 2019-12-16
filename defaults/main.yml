@@ -1,6 +1,7 @@
 ---
-# defaults file for dev-ivantory
-is_permitted: no
+# defaults for dev-ivantory
+
+is_permitted: false
 divan_skip_prepare: false
 
 divan_repo: please_change_me
@@ -35,4 +36,11 @@ divan_linked_binaries:
   - cryptor
   - vultr
   - gitroles
+
+git_hub_release: latest
+git_hub_dir: "/usr/local/hub/hub-linux-amd64-{{ git_hub_release }}"
+git_hub_remake_links: false
+git_hub_binary: /usr/local/bin/hub
+git_hub_man_dir: /usr/local/share/man/man1
+git_hub_completion_dir: /etc/bash_completion.d
 ...

@@ -1,14 +1,14 @@
 ---
-- name: check whether repository is already decyphered
+- name: check whether repository is already decrypted
   git_config:
     repo: "{{ divan_dir }}"
     scope: local
     name: "{{ divan_cryptor_configured_flag }}"
     state: present
-  register: repo_decyphered_result
+  register: repo_decrypted_result
   when: divan_cryptor_configured_flag != '' # noqa 602
 
-- name: decypher repository
+- name: decrypt repository
   command: >
     "{{ divan_cryptor_exe }}"
       setup
@@ -21,5 +21,5 @@
   environment:
     repo_password: "{{ divan_password }}"
     check_phrase: "{{ divan_check_phrase }}"
-  when: repo_decyphered_result.config_value != 'true'
+  when: repo_decrypted_result.config_value != 'true'
 ...

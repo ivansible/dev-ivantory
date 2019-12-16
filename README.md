@@ -9,10 +9,11 @@ This role will:
 - install github (and gitlab) access keys (via `ivansible.dev_user` role);
 - setup bash and git aliases for development (via `ivansible.dev_user` role);
 - install ansible locally for user (via `ivansible.dev_ansible` role);
+- install github client [hub](https://github.com/github/hub) for making new roles;
 - check out `ivantory` inventory and playbooks from github;
 - configure cipher and password for
   [transcrypt](https://github.com/elasticdog/transcrypt);
-- decypher the repository;
+- decrypt the repository;
 - harden permissions of secret files;
 - login to ansible galaxy using github token;
 - import required roles;
@@ -112,18 +113,28 @@ Directory for ansible virtual environment.
 
 Set this to `true` if you have already run `dev_user` and `dev_ansible` roles.
 
+    git_hub_release: latest
+
+Release of the github client to install. Empty string will disable this step.
+
+    git_hub_...: ...
+
+Other settings for github client. You will rarely change these.
+
 
 ## Tags
 
-- `divan_prepare_user` -- Install SSH access keys, setup bash and git aliases
-- `divan_prepare_ansible` -- Install local user ansible
-- `divan_checkout` -- Checkout inventory and playbooks
-- `divan_decrypt` -- Decrypt secret files in the repository
-- `divan_harden_secrets` -- Harden file permissions in secret directories
-- `divan_galaxy` -- Galaxy login and role import
-- `divan_ssh_config` -- Add example of login settings for vagrant boxes
+- `divan_prepare_user` -- install SSH access keys, setup bash and git aliases
+- `divan_prepare_ansible` -- install user-local ansible
+- `divan_install_hub` -- install github cli
+- `divan_checkout` -- checkout inventory and playbooks
+- `divan_decrypt` -- decrypt secret files in the repository
+- `divan_harden_secrets` -- harden file permissions in secret directories
+- `divan_galaxy` -- galaxy login and role import
+- `divan_ssh_config` -- add example of login settings for vagrant boxes
                         to `~/.ssh/config`
-- `divan_links` -- Create symbolic links for galaxy roles, requirements etc
+- `divan_links` -- create symbolic links for galaxy roles, requirements etc
+- `divan_all` -- all of the above
 
 
 ## Dependencies
@@ -156,4 +167,4 @@ MIT
 
 ## Author Information
 
-Created in 2018 by [IvanSible](https://github.com/ivansible)
+Created in 2018-2020 by [IvanSible](https://github.com/ivansible)

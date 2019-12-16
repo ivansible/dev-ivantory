@@ -1,7 +1,8 @@
 ---
-# tasks file for dev-ivantory
+# tasks for dev-ivantory
 
-- include_role:
+- name: setup user for development
+  include_role:
     name: ivansible.dev_user
     apply:
       tags: divan_prepare_user
@@ -13,8 +14,10 @@
   tags:
     - divan_prepare_user
     - divan_prepare
+    - divan_all
 
-- include_role:
+- name: install user-local ansible
+  include_role:
     name: ivansible.dev_ansible
     apply:
       tags: divan_prepare_user
@@ -24,41 +27,59 @@
   tags:
     - divan_prepare_ansible
     - divan_prepare
+    - divan_all
+
+- name: install github cli
+  import_tasks: hub.yml
+  become: true
+  when: git_hub_release != '' # noqa 602
+  tags:
+    - divan_install_hub
+    - divan_all
+    - ip4only
 
 - name: checkout inventory and playbooks
   git:
     dest: "{{ divan_dir }}"
     repo: "{{ divan_repo }}"
     version: "{{ divan_branch }}"
-    update: no  # only clone, don't choke on pending modifications
-    accept_hostkey: yes
+    update: false  # only clone, don't choke on pending modifications
+    accept_hostkey: true
   register: checkout_result
   # github sporadically fails from .ru
   until: "'timed out' not in checkout_result.stderr |default('')"
   when: is_permitted |bool
-  tags: divan_checkout
+  tags:
+    - divan_checkout
+    - divan_all
 
 - name: symbolic links for ivantory
   import_tasks: links.yml
-  tags: divan_links
+  tags:
+    - divan_links
+    - divan_all
 
 # note: ansible requirements are already installed by ivansible.dev_ansible
 
 - name: decrypt repository
   import_tasks: crypt.yml
   when: divan_password and is_permitted |bool
-  tags: divan_decrypt
+  tags:
+    - divan_decrypt
+    - divan_all
 
 - name: setup galaxy roles
   import_tasks: galaxy.yml
   when: is_permitted |bool
-  tags: divan_galaxy
+  tags:
+    - divan_galaxy
+    - divan_all
 
 - name: template of insecure developer login to vagrant boxes
   # See: http://hakunin.com/six-ansible-practices
   blockinfile:
     path: "{{ ansible_user_dir }}/.ssh/config"
-    create: yes
+    create: true
     mode: 0600
     block: |
       Host vagrant-box
@@ -71,5 +92,7 @@
       {# Never report about making such awful things #}
         LogLevel ERROR
     marker: '# {mark} vagrant box example'
-  tags: divan_ssh_config
+  tags:
+    - divan_ssh_config
+    - divan_all
 ...
