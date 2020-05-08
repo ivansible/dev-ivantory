@@ -36,6 +36,7 @@ divan_linked_binaries:
   - cryptor
   - vultr
   - gitroles
+  - lin-enter
 
 git_hub_release: latest
 git_hub_dir: "/usr/local/hub/hub-linux-amd64-{{ git_hub_release }}"
