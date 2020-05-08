@@ -52,8 +52,11 @@
             role login
             "--github-token={{ divan_github_token }}"
       register: galaxy_login_result
-      when: (not dot_galaxy_token_old.stat.exists or dot_galaxy_token_old.stat.size == 0) and
-            (not dot_galaxy_token_new.stat.exists or dot_galaxy_token_new.stat.size == 0)
+      until: galaxy_login_result is successful
+      vars:
+        got_token_old: "{{ dot_galaxy_token_old.stat.exists and dot_galaxy_token_old.stat.size > 0 }}"
+        got_token_new: "{{ dot_galaxy_token_new.stat.exists and dot_galaxy_token_new.stat.size > 0 }}"
+      when: not (got_token_old or got_token_new)
 
     - block:
         - name: ensure permissions of contemporary galaxy token file
@@ -70,5 +73,5 @@
             owner: "{{ ansible_user_id }}"
             mode: 0600
           when: dot_galaxy_token_old.stat.exists or galaxy_login_result is changed
-  when: divan_github_token != '' # noqa 602
+  when: divan_github_token |default('')
 ...
