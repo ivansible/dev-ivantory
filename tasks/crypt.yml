@@ -6,7 +6,7 @@
     name: "{{ divan_cryptor_configured_flag }}"
     state: present
   register: repo_decrypted_result
-  when: divan_cryptor_configured_flag != '' # noqa 602
+  when: divan_cryptor_configured_flag |d('')
 
 - name: decrypt repository
   command: >

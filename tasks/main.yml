@@ -1,14 +1,12 @@
 ---
-# tasks for dev-ivantory
-
 - name: setup user for development
   include_role:
     name: ivansible.dev_user
     apply:
       tags: divan_prepare_user
   vars:
-    # please enable dev_user_install_keys in inventory for permitted group
-    #dev_user_install_keys: true
+    ## please enable dev_user_install_keys in inventory for permitted group
+    # dev_user_install_keys: true
     dev_user_setup_system: true
   when: not divan_skip_prepare |bool
   tags:
@@ -32,7 +30,7 @@
 - name: install github cli
   import_tasks: hub.yml
   become: true
-  when: git_hub_release != '' # noqa 602
+  when: git_hub_release |d('')
   tags:
     - divan_install_hub
     - divan_all
@@ -43,11 +41,12 @@
     dest: "{{ divan_dir }}"
     repo: "{{ divan_repo }}"
     version: "{{ divan_branch }}"
-    update: false  # only clone, don't choke on pending modifications
+    ## only clone, don't choke on pending modifications
+    update: false
     accept_hostkey: true
   register: checkout_result
-  # github sporadically fails from .ru
-  until: "'timed out' not in checkout_result.stderr |default('')"
+  ## retry on sporadic network failures
+  until: checkout_result.stderr |d('') is not search('timed out')
   when: is_permitted |bool
   tags:
     - divan_checkout
@@ -59,7 +58,7 @@
     - divan_links
     - divan_all
 
-# note: ansible requirements are already installed by ivansible.dev_ansible
+## note: ansible requirements are already installed by ivansible.dev_ansible
 
 - name: decrypt repository
   import_tasks: crypt.yml
@@ -76,7 +75,7 @@
     - divan_all
 
 - name: template of insecure developer login to vagrant boxes
-  # See: http://hakunin.com/six-ansible-practices
+  ## See: http://hakunin.com/six-ansible-practices
   blockinfile:
     path: "{{ ansible_user_dir }}/.ssh/config"
     create: true
@@ -84,7 +83,7 @@
     block: |
       Host vagrant-box
         Hostname vagrant-box.dev
-        Port {{ real_ssh_port | default(ansible_port) | default(22) }}
+        Port {{ real_ssh_port | d(ansible_port) | d(22) }}
       {# Never complain about ever-changing host keys #}
         StrictHostKeyChecking no
       {# Never try to remember those keys via known_hosts #}
