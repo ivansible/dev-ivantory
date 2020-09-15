@@ -31,6 +31,7 @@
     src: "{{ git_hub_dir }}/bin/hub"
     dest: "{{ git_hub_binary }}"
     state: link
+    force: true
 
 - name: directory for github cli man pages
   file:
