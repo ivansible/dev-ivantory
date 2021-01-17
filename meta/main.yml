@@ -11,7 +11,7 @@ galaxy_info:
   description: "Deploy `ivansible` inventory and playbooks"
   company: "IvanSible"
   license: MIT
-  min_ansible_version: 2.8
+  min_ansible_version: 2.9
 
   platforms:
     - name: Ubuntu
