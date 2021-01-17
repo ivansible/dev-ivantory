@@ -17,6 +17,7 @@
   file:
     path: "{{ git_hub_dir |dirname }}"
     state: directory
+    mode: 0755
 
 - name: download and unpack github cli archive
   unarchive:
@@ -37,8 +38,10 @@
   file:
     dest: "{{ git_hub_man_dir }}"
     state: directory
+    mode: 0755
 
 - name: links for github cli man pages
+  # noqa 306
   shell: >
     for page in *.1 ; do
       ln -sf \

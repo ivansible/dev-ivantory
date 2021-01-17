@@ -1,5 +1,10 @@
 ---
 is_permitted: true
+lin_use_ssh: false
+lin_firewall: none
+allow_sysctl: false
+lin_core_time_sync: false
+lin_core_system_locale: en_US.UTF-8
 
 divan_repo: https://github.com/ivansible/ivantory-test.git
 divan_dir: "{{ ansible_user_dir }}/test/ivantory"
@@ -12,4 +17,7 @@ divan_check_file: files/check-file
 divan_check_phrase: "test passphrase"
 divan_password: ""
 divan_github_token: ""
+
+# skip github cli task since module github_release needs custom collection
+git_hub_release: ""
 ...

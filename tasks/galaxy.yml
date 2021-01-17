@@ -3,6 +3,7 @@
   file:
     state: directory
     path: "{{ divan_roles_dir }}"
+    mode: 0755
 
 - name: create symbolic link for galaxy roles
   file:
