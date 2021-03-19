@@ -16,7 +16,7 @@ divan_cryptor_configured_flag: ivacrypt.configured
 divan_check_file: files/check-file
 divan_check_phrase: "test passphrase"
 divan_password: ""
-divan_github_token: ""
+divan_galaxy_token: ""
 
 # skip github cli task since module github_release needs custom collection
 git_hub_release: ""

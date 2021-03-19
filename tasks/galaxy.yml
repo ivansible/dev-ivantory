@@ -12,6 +12,15 @@
     dest: "{{ divan_dir }}/roles-galaxy"
   tags: divan_links
 
+- name: configure galaxy token
+  copy:
+     dest: "{{ ansible_user_dir }}/.ansible/galaxy_token"
+     content: "token: {{ divan_galaxy_token }}\n"
+     force: true
+     mode: 0600
+  when:
+    - divan_galaxy_token |d('')
+
 - name: install galaxy roles
   # old pre-2.9 syntax: ansible-galaxy install
   # new 2.9+ syntax is: ansible-galaxy role install
@@ -26,53 +35,17 @@
   args:
     chdir: "{{ divan_dir }}"
     creates: "{{ divan_roles_dir }}/{{ divan_roles_check_role }}"
-  when: divan_roles_list_file and divan_roles_check_role
+  when:
+    - divan_roles_list_file |d('')
+    - divan_roles_check_role |d('')
+    - divan_galaxy_token |d('')
 
-- name: assert that checked galaxy role was installed
+- name: assert that probe galaxy role was installed
   file:
     path: "{{ divan_roles_dir }}/{{ divan_roles_check_role }}/meta/main.yml"
     state: file
-  when: divan_roles_list_file and divan_roles_check_role
-
-- name: perform galaxy login
-  block:
-    - name: check that non-empty pre-2.9 galaxy token file exists
-      stat:
-        path: "{{ ansible_user_dir }}/.ansible_galaxy"
-      register: dot_galaxy_token_old
-
-    - name: check that non-empty contemporary galaxy token file exists
-      stat:
-        path: "{{ ansible_user_dir }}/.ansible/galaxy_token"
-      register: dot_galaxy_token_new
-
-    - name: perform galaxy login using github token
-      no_log: "{{ hide_secrets |bool }}"
-      command: >
-        "{{ divan_venv_dir }}/bin/ansible-galaxy"
-            role login
-            "--github-token={{ divan_github_token }}"
-      register: galaxy_login_result
-      until: galaxy_login_result is successful
-      vars:
-        got_token_old: "{{ dot_galaxy_token_old.stat.exists and dot_galaxy_token_old.stat.size > 0 }}"
-        got_token_new: "{{ dot_galaxy_token_new.stat.exists and dot_galaxy_token_new.stat.size > 0 }}"
-      when: not (got_token_old or got_token_new)
-
-    - block:
-        - name: ensure permissions of contemporary galaxy token file
-          file:
-            path: "{{ ansible_user_dir }}/.ansible/galaxy_token"
-            owner: "{{ ansible_user_id }}"
-            mode: 0600
-          when: dot_galaxy_token_new.stat.exists or galaxy_login_result is changed
-      rescue:
-        # location of ansible-galaxy token file has changed since 2.9
-        - name: ensure permissions of pre-2.9 galaxy token file
-          file:
-            path: "{{ ansible_user_dir }}/.ansible/galaxy_token"
-            owner: "{{ ansible_user_id }}"
-            mode: 0600
-          when: dot_galaxy_token_old.stat.exists or galaxy_login_result is changed
-  when: divan_github_token |default('')
+  when:
+    - divan_roles_list_file |d('')
+    - divan_roles_check_role |d('')
+    - divan_galaxy_token |d('')
 ...

@@ -98,9 +98,9 @@ The script will run `ansible-galaxy` and import roles from given `list file`
 into given role `subdir`ectory if given `check role` does not exist.
 
 
-    divan_github_token: ""
+    divan_galaxy_token: ""
 
-Perform galaxy login with given github token.
+Configure ansible-galaxy client with given token.
 
 
     divan_venv_dir: ~/.ansible/venv

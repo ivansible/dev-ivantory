@@ -24,7 +24,7 @@ divan_venv_link: "{{ divan_dir }}/.venv"
 divan_requirements_file: "{{ divan_dir }}/ansible-requirements.txt"
 divan_requirements_link: "{{ divan_venv_dir |dirname }}/ivantory-requirements.txt"
 
-divan_github_token: ""
+divan_galaxy_token: ""
 
 divan_cryptor_exe: /usr/local/bin/transcrypt.sh
 divan_cryptor_configured_flag: ""
