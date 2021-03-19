@@ -52,6 +52,17 @@
     - divan_checkout
     - divan_all
 
+- name: configure inventory git for push upstream
+  git_config:
+    repo: "{{ divan_dir }}"
+    scope: local
+    name: push.default
+    value: upstream
+  when: is_permitted |bool
+  tags:
+    - divan_checkout
+    - divan_all
+
 - name: symbolic links for ivantory
   import_tasks: links.yml
   tags:
@@ -62,7 +73,9 @@
 
 - name: decrypt repository
   import_tasks: crypt.yml
-  when: divan_password and is_permitted |bool
+  when:
+    - is_permitted |bool
+    - divan_password |d('')
   tags:
     - divan_decrypt
     - divan_all
@@ -74,7 +87,7 @@
     - divan_galaxy
     - divan_all
 
-- name: template of insecure developer login to vagrant boxes
+- name: set ssh for insecure developer login to vagrant boxes
   ## See: http://hakunin.com/six-ansible-practices
   blockinfile:
     path: "{{ ansible_user_dir }}/.ssh/config"
