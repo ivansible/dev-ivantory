@@ -8,3 +8,4 @@ pytestdebug.log
 *.retry
 *.pyc
 *.pyo
+.cache

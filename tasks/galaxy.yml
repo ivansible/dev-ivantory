@@ -14,10 +14,10 @@
 
 - name: configure galaxy token
   copy:
-     dest: "{{ ansible_user_dir }}/.ansible/galaxy_token"
-     content: "token: {{ divan_galaxy_token }}\n"
-     force: true
-     mode: 0600
+    dest: "{{ ansible_user_dir }}/.ansible/galaxy_token"
+    content: "token: {{ divan_galaxy_token }}\n"
+    force: true
+    mode: 0600
   when:
     - divan_galaxy_token |d('')
 
