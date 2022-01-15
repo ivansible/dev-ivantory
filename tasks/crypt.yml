@@ -1,25 +1,65 @@
 ---
+- name: detect latest git-sops release
+  github_release:
+    repository: ivandeex/git-sops
+    release: "{{ divan_sops_version }}"
+    template: '{download_url}/git-sops_{ver}_{goarch}.deb'
+    strip_v: true
+    version_script: "{{ divan_sops_binary }} version"
+    script_regex: 'v[0-9]+[.][0-9._-]+'
+    reinstall: "{{ divan_sops_upgrade |bool }}"
+  register: _divan_sops_release
+
+- name: install git-sops package
+  apt:
+    deb: "{{ _divan_sops_release.url }}"
+    only_upgrade: "{{ not divan_sops_upgrade |bool }}"
+  become: true
+  register: _divan_sops_package
+  failed_when:
+    - _divan_sops_package.failed
+    - _divan_sops_package.msg is not search('later version is already installed')
+  when: _divan_sops_release is changed
+
+- name: ensure directory for sops config
+  file:
+    path: ~/.config/sops/age
+    state: directory
+    mode: 0750
+
+- name: configure age keys
+  blockinfile:
+    path: ~/.config/sops/age/keys.txt
+    create: true
+    mode: 0640
+    block: |
+      # public key: "{{ divan_sops_age_recipients }}"
+      {{ divan_sops_age_private_key }}
+    state: present
+    marker: "# == {mark} IVANTORY"
+
 - name: check whether repository is already decrypted
   git_config:
     repo: "{{ divan_dir }}"
     scope: local
-    name: "{{ divan_cryptor_configured_flag }}"
+    name: sops.configured
     state: present
-  register: repo_decrypted_result
-  when: divan_cryptor_configured_flag |d('')
+  register: _divan_decrypted_result
 
 - name: decrypt repository
-  command: >
-    "{{ divan_cryptor_exe }}"
-      setup
-      -c "{{ divan_cipher }}"
-      -p env:repo_password
-      -t "{{ divan_check_file }}"
-      -d env:check_phrase
+  when: _divan_decrypted_result.config_value != 'true' or divan_sops_upgrade |bool
+  command: "{{ divan_sops_binary }} setup --force"
   args:
     chdir: "{{ divan_dir }}"
   environment:
-    repo_password: "{{ divan_password }}"
-    check_phrase: "{{ divan_check_phrase }}"
-  when: repo_decrypted_result.config_value != 'true'
+    SOPS_PROBE_FILE: "{{ divan_sops_probe_file }}"
+    SOPS_PROBE_TEXT: "{{ divan_sops_probe_text }}"
+    SOPS_AGE: "{{ divan_sops_age_recipients }}"
+    SOPS_RENAME_KEYS: "{{ divan_sops_rename_keys }}"
+    SOPS_KEEP_FORMATTING: "{{ divan_sops_keep_formatting }}"
+    SOPS_ENCRYPTED_COMMENT_PREFIX: "{{ divan_sops_encrypted_comment_prefix }}"
+    SOPS_ENCRYPTED_COMMENT_SUFFIX: "{{ divan_sops_encrypted_comment_suffix }}"
+    SOPS_INDENT: "{{ divan_sops_yaml_indent }}"
+    SOPS_FILE_MODTIME: "{{ divan_sops_file_modtime }}"
+    SOPS_IGNORE_MAC: "{{ divan_sops_ignore_mac }}"
 ...

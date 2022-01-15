@@ -75,7 +75,7 @@
   import_tasks: crypt.yml
   when:
     - is_permitted |bool
-    - divan_password |d('')
+    - divan_sops_age_recipients |d('')
   tags:
     - divan_decrypt
     - divan_all

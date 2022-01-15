@@ -4,14 +4,12 @@
     state: link
     src: "{{ divan_venv_dir |relpath(divan_dir) }}"
     dest: "{{ divan_venv_link }}"
-  tags: divan_links
 
 - name: create symbolic link for requirements
   file:
     state: link
     src: "{{ divan_requirements_file |relpath(divan_requirements_link |dirname) }}"
     dest: "{{ divan_requirements_link }}"
-  tags: divan_links
 
 - name: symbolic links for ivantory binaries
   file:

@@ -11,10 +11,22 @@ divan_dir: "{{ ansible_user_dir }}/devel/ivantory"
 # same as in the dev-ansible role
 divan_venv_dir: "{{ ansible_user_dir }}/.ansible/venv"
 
-divan_cipher: aes-256-cbc
-divan_password: ""
-divan_check_file: ""
-divan_check_phrase: ""
+divan_sops_probe_file: ""
+divan_sops_probe_text: ""
+divan_sops_age_recipients: ""
+divan_sops_age_private_key: ""
+divan_sops_ignore_mac: 'false'
+divan_sops_file_modtime: 'false'
+
+divan_sops_rename_keys: ""
+divan_sops_keep_formatting: ""
+divan_sops_encrypted_comment_prefix: ""
+divan_sops_encrypted_comment_suffix: ""
+divan_sops_yaml_indent: 4
+
+divan_sops_version: latest
+divan_sops_upgrade: false
+divan_sops_binary: /usr/local/bin/git-sops
 
 divan_roles_dir: "{{ ansible_user_dir }}/devel/galaxy"
 divan_roles_list_file: "{{ divan_dir }}/requirements.yml"
@@ -26,14 +38,10 @@ divan_requirements_link: "{{ divan_venv_dir |dirname }}/ivantory-requirements.tx
 
 divan_galaxy_token: ""
 
-divan_cryptor_exe: /usr/local/bin/transcrypt.sh
-divan_cryptor_configured_flag: ""
-
 dev_ansible_link_dir: "{{ ansible_user_dir }}/bin"
 divan_linked_binaries:
   - play
   - role
-  - cryptor
   - vultr
   - gitroles
   - lin-enter

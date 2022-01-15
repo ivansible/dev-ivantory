@@ -53,42 +53,37 @@ Note: Only clone will be performed. If repository is already checked out
 (and probably modified), it will not be updated. This prevents problems
 with rewriting possible local modifications by ansible git module.
 
+    divan_sops_age_recipients: ""
+    divan_sops_age_private_key: ""
+    divan_sops_ignore_mac: 'false'
+    divan_sops_file_modtime: 'false'
 
-    divan_cipher: aes-256-cbc
+Encryption settings for git-sops.
 
-Crypto cipher for secret settings.
+    divan_sops_probe_file: ""
+    divan_sops_probe_text: ""
 
-    divan_password: ""
+Relative path of the file used to check whether repository needs decryption.
 
-Crypto password for secret settings.
-Empty string means that repository is not encrypted.
+    divan_sops_rename_keys: ""
+    divan_sops_keep_formatting: ""
+    divan_sops_encrypted_comment_prefix: ""
+    divan_sops_encrypted_comment_suffix: ""
+    divan_sops_yaml_indent: 4
 
-    divan_check_file: ""
+Various git-sops settings w.r.t. yaml formatting.
 
-If this setting is not empty, it defines relative path of a check file.
-Ansible will compare file contents with is base name, and if they do not
-match, report decryption failure and abort the scenario.
+    divan_sops_binary: /usr/local/bin/git-sops
+Location of the `git-sops` binary.
 
+    divan_sops_version: latest
 
-    divan_cryptor_exe: /usr/local/bin/transcrypt.sh
-Location of cryptor binary.
+Version of `git-sops` to use. Can be set to `latest` to auto-detect.
 
-    divan_cryptor_configured_flag: ""
-Cryptor sets this Git flag when configuration is done.
+    divan_sops_upgrade: false
 
-    divan_cryptor_release: latest
-
-Cryptor version to use. Check out
-https://github.com/elasticdog/transcrypt/releases
-for new releases.
-If you set this to `latest` instead of concrete release number, the role
-will detect latest release automatically.
-
-    divan_cryptor_reinstall: false
-
-Normally, if cryptor is already installed, it will not be upgraded.
-This flag allows for upgrades.
-
+Normally, if git-sops is already installed, it will not be upgraded.
+This flag enables overriding.
 
     divan_roles_dir: ~/devel/galaxy
     divan_roles_list_file: galaxy.yml
