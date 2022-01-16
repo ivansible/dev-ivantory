@@ -3,22 +3,22 @@
   github_release:
     repository: ivandeex/git-sops
     release: "{{ divan_sops_version }}"
-    template: '{download_url}/git-sops_{ver}_{goarch}.deb'
+    template: '{download_url}/git-sops_v{ver}_linux-{goarch}'
     strip_v: true
     version_script: "{{ divan_sops_binary }} version"
     script_regex: 'v[0-9]+[.][0-9._-]+'
     reinstall: "{{ divan_sops_upgrade |bool }}"
   register: _divan_sops_release
 
-- name: install git-sops package
-  apt:
-    deb: "{{ _divan_sops_release.url }}"
-    only_upgrade: "{{ not divan_sops_upgrade |bool }}"
+- name: install git-sops binary
+  get_url:
+    url: "{{ _divan_sops_release.url }}"
+    dest: "{{ divan_sops_binary }}"
+    owner: root
+    group: root
+    mode: 0755
+    force: "{{ divan_sops_upgrade |bool }}"
   become: true
-  register: _divan_sops_package
-  failed_when:
-    - _divan_sops_package.failed
-    - _divan_sops_package.msg is not search('later version is already installed')
   when: _divan_sops_release is changed
 
 - name: ensure directory for sops config
