@@ -41,7 +41,7 @@ though, as the role uses it only to fill in a comment.
 
 URL of github repository with ivansible.
 
-    divan_branch: master
+    divan_branch: main
 
 Repository branch to checkout.
 

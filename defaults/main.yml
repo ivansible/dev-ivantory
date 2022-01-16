@@ -5,7 +5,7 @@ is_permitted: false
 divan_skip_prepare: false
 
 divan_repo: please_change_me
-divan_branch: master
+divan_branch: main
 divan_dir: "{{ ansible_user_dir }}/devel/ivantory"
 
 # same as in the dev-ansible role
