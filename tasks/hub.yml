@@ -6,7 +6,7 @@
     strip_v: true
     version_script: "{{ git_hub_binary }} --version |grep 'hub version'"
     script_regex: "[0-9.]+"
-    template: "{download_url}/hub-linux-amd64-{ver}.tgz"
+    template: "{download_url}/hub-linux-{goarch}-{ver}.tgz"
   register: latest_hub_release
 
 - name: record github cli release

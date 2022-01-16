@@ -39,7 +39,7 @@ divan_linked_binaries:
   - lin-enter
 
 git_hub_release: latest
-git_hub_dir: "/usr/local/hub/hub-linux-amd64-{{ git_hub_release }}"
+git_hub_dir: "/usr/local/hub/hub-linux-{{ lin_apt_arch }}-{{ git_hub_release }}"
 git_hub_remake_links: false
 git_hub_binary: /usr/local/bin/hub
 git_hub_man_dir: /usr/local/share/man/man1

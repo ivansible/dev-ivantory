@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - ivansible.lin_base     # for hide_secrets, allow_sysctl
+  - ivansible.lin_base     # for hide_secrets, allow_sysctl, lin_apt_arch
 # - role: ivansible.dev_user
 #   dev_user_setup_system: true
 # - role: ivansible.dev_ansible
