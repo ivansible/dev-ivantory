@@ -33,7 +33,7 @@ divan_roles_list_file: "{{ divan_dir }}/requirements.yml"
 divan_roles_check_role: ivansible.lin_base
 
 divan_venv_link: "{{ divan_dir }}/.venv"
-divan_requirements_file: "{{ divan_dir }}/ansible-requirements.txt"
+divan_requirements_file: "{{ divan_dir }}/requirements.txt"
 divan_requirements_link: "{{ divan_venv_dir |dirname }}/ivantory-requirements.txt"
 
 divan_galaxy_token: ""
