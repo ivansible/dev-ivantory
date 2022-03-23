@@ -28,6 +28,7 @@ divan_sops_version: latest
 divan_sops_upgrade: false
 divan_sops_binary: /usr/local/bin/git-sops
 
+divan_collections_dir: "{{ ansible_user_dir }}/devel/ansible_collections"
 divan_roles_dir: "{{ ansible_user_dir }}/devel/galaxy"
 divan_roles_list_file: "{{ divan_dir }}/requirements.yml"
 divan_roles_check_role: ivansible.lin_base

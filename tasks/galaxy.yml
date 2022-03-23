@@ -1,15 +1,36 @@
 ---
-- name: create directory for galaxy roles
+- name: create standalone directory for collections
+  file:
+    state: directory
+    path: "{{ divan_collections_dir }}"
+    mode: 0755
+
+- name: create symbolic link for collections in ivantory
+  file:
+    state: link
+    src: "{{ collections_relink }}"
+    dest: "{{ collections_subdir }}"
+  vars:
+    collections_subdir: "{{ divan_dir }}/collections/ansible_collections"
+    collections_parent: "{{ collections_subdir |dirname }}"
+    collections_relink: "{{ divan_collections_dir |realpath |relpath(collections_parent) }}"
+  tags: divan_links
+
+- name: create standalone directory for galaxy roles
   file:
     state: directory
     path: "{{ divan_roles_dir }}"
     mode: 0755
 
-- name: create symbolic link for galaxy roles
+- name: create symbolic link for galaxy roles in ivantory
   file:
     state: link
-    src: "{{ divan_roles_dir |relpath(divan_dir) }}"
-    dest: "{{ divan_dir }}/roles-galaxy"
+    src: "{{ roles_relink }}"
+    dest: "{{ roles_subdir }}"
+  vars:
+    roles_subdir: "{{ divan_dir }}/roles"
+    roles_parent: "{{ roles_subdir |dirname }}"
+    roles_relink: "{{ divan_roles_dir |realpath |relpath(roles_parent) }}"
   tags: divan_links
 
 - name: configure galaxy token
